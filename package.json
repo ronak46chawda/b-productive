@@ -1,0 +1,67 @@
+{
+  "name": "b-productive",
+  "private": true,
+  "version": "0.0.0",
+  "main": "dist-electron/main.js",
+  "scripts": {
+    "dev": "concurrently -k \"vite\" \"tsc -w -p tsconfig.electron.json\" \"electron .\"",
+    "build": "tsc -b && vite build && tsc -p tsconfig.electron.json && node copy-wasm.js",
+    "electron:build": "tsc -p tsconfig.electron.json",
+    "package": "npm run build && electron-builder",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "jspdf": "^4.2.1",
+    "jspdf-autotable": "^5.0.8",
+    "lucide-react": "^1.17.0",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "react-is": "^19.2.7",
+    "recharts": "^3.8.1",
+    "sql.js": "^1.14.1",
+    "zustand": "^5.0.14"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^24.12.3",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@types/sql.js": "^1.4.11",
+    "@vitejs/plugin-react": "^6.0.1",
+    "concurrently": "^10.0.3",
+    "electron": "^42.3.3",
+    "electron-builder": "^26.15.0",
+    "eslint": "^10.3.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.2",
+    "globals": "^17.6.0",
+    "typescript": "~6.0.2",
+    "typescript-eslint": "^8.59.2",
+    "vite": "^8.0.12"
+  },
+  "build": {
+    "appId": "com.protrack.app",
+    "productName": "ProTrack",
+    "directories": {
+      "output": "dist-package"
+    },
+    "files": [
+      "dist/**/*",
+      "dist-electron/**/*"
+    ],
+    "mac": {
+      "target": [
+        "dmg"
+      ],
+      "category": "public.app-category.productivity"
+    },
+    "dmg": {
+      "title": "ProTrack Install",
+      "window": {
+        "width": 540,
+        "height": 380
+      }
+    }
+  }
+}
